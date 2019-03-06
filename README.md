@@ -1,5 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+**Update**: このリポジトリは`vqv/ggbiplot`リポジトリをフォークしたもので、日本語表示のためのフォント指定などを追加していく予定です。
+
 **NEWS**: Active development of ggbiplot has moved to the [experimental branch](https://github.com/vqv/ggbiplot/tree/experimental)
 
 ggbiplot
