@@ -38,6 +38,9 @@
 #' @param varname.adjust  adjustment factor the placement of the variable names, >= 1 means farther from the arrow
 #' @param varname.abbrev  whether or not to abbreviate the variable names
 #'
+#' @param base_family     ggplot2 theme's base font family
+#' @param family          ggplot2 object's font family
+# 
 #' @return                a ggplot2 plot
 #' @export
 #' @examples
@@ -46,17 +49,18 @@
 #'   print(ggbiplot(wine.pca, obs.scale = 1, var.scale = 1, groups = wine.class, ellipse = TRUE, circle = TRUE))
 #'
 ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE, 
-                      obs.scale = 1 - scale, var.scale = scale, 
-                      groups = NULL, ellipse = FALSE, ellipse.prob = 0.68, 
-                      labels = NULL, labels.size = 3, alpha = 1, 
-                      var.axes = TRUE, 
-                      circle = FALSE, circle.prob = 0.69, 
-                      varname.size = 3, varname.adjust = 1.5, 
-                      varname.abbrev = FALSE, ...)
+                     obs.scale = 1 - scale, var.scale = scale, 
+                     groups = NULL, ellipse = FALSE, ellipse.prob = 0.68, 
+                     labels = NULL, labels.size = 3, alpha = 1, 
+                     var.axes = TRUE, 
+                     circle = FALSE, circle.prob = 0.69, 
+                     varname.size = 3, varname.adjust = 1.5, 
+                     varname.abbrev = FALSE,
+                     base_family = NA, family = NA, ...)
 {
   library(ggplot2)
-  library(plyr)
-  library(scales)
+  # library(plyr)
+  library(scales)   # Scale Functions for Visualization
   library(grid)
 
   stopifnot(length(choices) == 2)
@@ -143,41 +147,53 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
   df.v$angle <- with(df.v, (180/pi) * atan(yvar / xvar))
   df.v$hjust = with(df.v, (1 - varname.adjust * sign(xvar)) / 2)
 
+  ############################################################################
+  # ここからが描画処理
   # Base plot
-  g <- ggplot(data = df.u, aes(x = xvar, y = yvar)) + 
-          xlab(u.axis.labs[1]) + ylab(u.axis.labs[2]) + coord_equal()
+  g <- ggplot2::ggplot(data = df.u, aes(x = xvar, y = yvar)) + 
+         ggplot2::xlab(u.axis.labs[1]) + ggplot2::ylab(u.axis.labs[2]) +
+         ggplot2::coord_equal() +
+         ggplot2::theme(text = ggplot2::element_text(family = base_family))
 
+  # 座標を描く場合
   if(var.axes) {
     # Draw circle
-    if(circle) 
-    {
+    if(circle) {
       theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
       circle <- data.frame(xvar = r * cos(theta), yvar = r * sin(theta))
-      g <- g + geom_path(data = circle, color = muted('white'), 
-                         size = 1/2, alpha = 1/3)
+      g <- g + 
+        ggplot2::geom_path(data = circle, color = scales::muted('white'),
+                           size = 1/2, alpha = 1/3)
     }
 
+    # 変量のベクトルを描く（変量名はどこで描く？）
     # Draw directions
     g <- g +
-      geom_segment(data = df.v,
-                   aes(x = 0, y = 0, xend = xvar, yend = yvar),
-                   arrow = arrow(length = unit(1/2, 'picas')), 
-                   color = muted('red'))
-  }
+      ggplot2::geom_segment(data = df.v,
+                            aes(x = 0, y = 0, xend = xvar, yend = yvar),
+                            arrow = grid::arrow(length = unit(1/2, 'picas')), 
+                            color = scales::muted('red'))
+  }  # End of if(var.axis)
 
+  # ラベルと点を描く
   # Draw either labels or points
   if(!is.null(df.u$labels)) {
     if(!is.null(df.u$groups)) {
-      g <- g + geom_text(aes(label = labels, color = groups), 
-                         size = labels.size)
+      g <- g + 
+        ggplot2::geom_text(ggplot2::aes(label = labels, color = groups), 
+                           size = labels.size, family = family)
     } else {
-      g <- g + geom_text(aes(label = labels), size = labels.size)      
+      g <- g + 
+        ggplot2::geom_text(ggplot2::aes(label = labels),
+                           size = labels.size, family = family)
     }
   } else {
     if(!is.null(df.u$groups)) {
-      g <- g + geom_point(aes(color = groups), alpha = alpha)
+      g <- g + 
+        ggplot2::geom_point(ggplot2::aes(color = groups), alpha = alpha)
     } else {
-      g <- g + geom_point(alpha = alpha)      
+      g <- g + 
+        ggplot2::geom_point(alpha = alpha)
     }
   }
 
@@ -197,17 +213,20 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
                  groups = x$groups[1])
     })
     names(ell)[1:2] <- c('xvar', 'yvar')
-    g <- g + geom_path(data = ell, aes(color = groups, group = groups))
+    g <- g + 
+      ggplotw::geom_path(data = ell,
+                         ggplot2::aes(color = groups, group = groups))
   }
 
   # Label the variable axes
   if(var.axes) {
     g <- g + 
-    geom_text(data = df.v, 
-              aes(label = varname, x = xvar, y = yvar, 
-                  angle = angle, hjust = hjust), 
-              color = 'darkred', size = varname.size)
+      ggplotw::geom_text(data = df.v, 
+                         ggplot2::aes(label = varname, x = xvar, y = yvar, 
+                                      angle = angle, hjust = hjust), 
+                         color = 'darkred', size = varname.size)
   }
+
   # Change the name of the legend for groups
   # if(!is.null(groups)) {
   #   g <- g + scale_color_brewer(name = deparse(substitute(groups)), 
