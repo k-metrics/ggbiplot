@@ -191,8 +191,8 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
   # データ用ラベルまたは点を描くになっているので、点とラベルを描くに変更
   # Draw either labels or points
 
-  # alphaチャネルが指定された場合は、文字の色を点の色と合わせるために
-  # 0.15～0.2程オフセットさせる
+  # alphaチャネルが指定された場合は、文字の色を点の色調を合わせるために
+  # 0.15～0.2程オフセットさせる（0.8以上はオフセットさせない）
   if(alpha > 0.8){
     offset = 1 - alpha
   } else {
