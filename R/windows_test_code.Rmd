@@ -20,12 +20,11 @@ source("./ggbiplot.r", encoding = 'UTF-8')
 # テスト用フォント設定
 ```{r}
 if (Sys.info()[1] == "Windows") {
-  windowsFonts(noto_serif = windowsFont("Noto Serif CJK JP"),
-               noto_sans = windowsFont("Noto Sans CJK JP"),
-               noto_mono = windowsFont("Noto Mono CJK JP"),
-               colonna = windowsFont("Colonna MT"))
-  base_family = c("noto_serif")
-  family = c("noto_mono")
+  windowsFonts(meiryo = windowsFont("Meiryo"),
+               ms_pmin = windowsFont("ＭＳ Ｐ明朝"),
+               ms_got = windowsFont("ＭＳ ゴシック"))
+  base_family = c("ms_pmin")
+  family = c("meiryo")
 } else if (Sys.info()[1] == "Linux") {
   base_family = c("Noto Serif CJK JP")
   family = c("Noto Mono CJK JP")
