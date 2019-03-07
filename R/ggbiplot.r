@@ -168,7 +168,7 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
          ggplot2::coord_equal() +
          ggplot2::theme(text = ggplot2::element_text(family = base_family))
 
-  # 座標を描く場合
+  # 変量の矢印（ベクトル）を描く場合
   if(var.axes) {
     # Draw circle
     if(circle) {
@@ -179,7 +179,7 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
                            size = 1/2, alpha = 1/3)
     }
 
-    # 変量のベクトルを描く（変量名はs最後に描く）
+    # 変量のベクトルを描く（変量名は最後に描く）
     # Draw directions
     g <- g +
       ggplot2::geom_segment(data = df.v,

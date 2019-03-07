@@ -14,10 +14,10 @@ require(tidyverse)
 source("./ggbiplot.r", encoding = 'UTF-8')
 ```
 
-本ファイルは`ggbiplot`に日本語フォントを指定できるように改修に対するテスト用のコードを記載してあります。日本語フォントとして`Noto`フォントの利用を前提としていますので、`Noto`フォントがインストールされていない場合には [こちら（ファイルサイズは1.1GB） <i class="fa fa-external-link"></i>](https://www.google.com/get/noto/help/install/){target="_blank" title="Google Note Fonts"} からダウンロードするか、ソースのフォント指定を変更してください。
+本ファイルは`ggbiplot`に日本語フォントを指定できるように改修に対するテスト用のコードを記載してあります。Linux環境では日本語フォントとして`Noto`フォントの利用を前提としていますので、`Noto`フォントがインストールされていない場合には [こちら（ファイルサイズは1.1GB） <i class="fa fa-external-link"></i>](https://www.google.com/get/noto/help/install/){target="_blank" title="Google Note Fonts"} からダウンロードするか、ソースのフォント指定を変更してください。Windows(7 or later)ならびにmacOSではデフォルトでインストールされているフォントを使っています。
 
 
-# テスト用フォント設定
+# テスト用フォントの設定
 ```{r}
 if (Sys.info()[1] == "Windows") {
   windowsFonts(meiryo = windowsFont("Meiryo"),
@@ -43,7 +43,7 @@ family
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl))
 ```
@@ -52,7 +52,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            base_family = base_family, family = family)
@@ -62,7 +62,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            base_family = base_family)
@@ -72,7 +72,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            family = family)
@@ -83,7 +83,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), family = family)
@@ -94,7 +94,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = TRUE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), 
@@ -105,7 +105,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), labels.size = 3.5,
@@ -116,7 +116,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), varname.size = 4,
@@ -127,7 +127,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            varname.size = 4, id = TRUE, 
@@ -139,7 +139,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = NULL,
            labels = row.names(mtcars), varname.size = 4,
@@ -150,7 +150,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = NULL,
            varname.size = 4, id = TRUE, 
@@ -163,7 +163,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), varname.size = 4,
@@ -174,7 +174,7 @@ mtcars %>%
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
-  prcomp(scale. = FALSE) %>%
+  prcomp(scale. = TRUE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), varname.size = 4,
