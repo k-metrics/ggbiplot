@@ -25,7 +25,7 @@ if (Sys.info()[1] == "Windows") {
   family = c("Noto Mono")
 } else {  # macOS
   base_famiry = c("HiraKakuPro-W3")
-  family = c("HiraKakuProN-W3")
+  family = c("Osaka")
 }
 ```
 
@@ -191,9 +191,10 @@ wine %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = TRUE, alpha = 0.5,
            circle = TRUE, groups = wine.class, id = TRUE,
            family = family) +
-  ggplot2::theme_light() + 
-  ggplot2::xlim(c(-4.5, 4.5)) + ggplot2::ylim(c(-4.5, 4.5)) + 
-  ggplot2::coord_flip() + ggplot2::coord_equal() +
-  ggplot2::geom_hline(yintercept = 0, linetype = "dashed") + 
-  ggplot2::geom_vline(xintercept = 0, linetype = "dashed")
+    ggplot2::theme_light() + 
+    ggplot2::xlim(c(-4.5, 4.5)) + ggplot2::ylim(c(-4.5, 4.5)) + 
+    ggplot2::coord_flip() + ggplot2::coord_equal() +
+    ggplot2::geom_hline(yintercept = 0, linetype = "dashed") + 
+    ggplot2::geom_vline(xintercept = 0, linetype = "dashed") + 
+    ggplot2::scale_color_brewer(palette = "Set2")
 ```
