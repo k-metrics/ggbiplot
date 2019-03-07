@@ -12,13 +12,8 @@ require(tidyverse)
 
 # ggbiplot.rのファイル位置に合わせて変更してください
 source("./ggbiplot.r", encoding = 'UTF-8')
-```
 
-本ファイルは`ggbiplot`に日本語フォントを指定できるように改修に対するテスト用のコードを記載してあります。Linux環境では日本語フォントとして`Noto`フォントの利用を前提としていますので、`Noto`フォントがインストールされていない場合には [こちら（ファイルサイズは1.1GB） <i class="fa fa-external-link"></i>](https://www.google.com/get/noto/help/install/){target="_blank" title="Google Note Fonts"} からダウンロードするか、ソースのフォント指定を変更してください。Windows(7 or later)ならびにmacOSではデフォルトでインストールされているフォントを使っています。
-
-
-# テスト用フォントの設定
-```{r}
+# OS環境によりフォントを変える
 if (Sys.info()[1] == "Windows") {
   windowsFonts(meiryo = windowsFont("Meiryo"),
                ms_pmin = windowsFont("ＭＳ Ｐ明朝"),
@@ -33,6 +28,14 @@ if (Sys.info()[1] == "Windows") {
   family = c("HiraKakuProN-W3")
 }
 
+
+```
+
+本ファイルは`ggbiplot`に日本語フォントを指定できるように改修に対するテスト用のコードを記載してあります。Linux環境では日本語フォントとして`Noto`フォントの利用を前提としていますので、`Noto`フォントがインストールされていない場合には [こちら（ファイルサイズは1.1GB） <i class="fa fa-external-link"></i>](https://www.google.com/get/noto/help/install/){target="_blank" title="Google Note Fonts"} からダウンロードするか、ソースのフォント指定を変更してください。Windows(7 or later)ならびにmacOSではデフォルトでインストールされているフォントを使っています。
+
+
+# テスト用フォントの設定
+```{r}
 base_family
 family
 ```
@@ -182,12 +185,17 @@ mtcars %>%
   ggplot2::theme_bw()
 ```
 
-# サンプルデータでの確認
+# 様々なレイヤーを追加
 ```{r}
 load("../data/wine.rda")
 wine %>% 
   prcomp(scale. = TRUE) %>% 
-  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = TRUE,
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = TRUE, alpha = 0.5,
            circle = TRUE, groups = wine.class, id = TRUE,
-           family = family)
+           family = family) +
+  ggplot2::theme_light() + 
+  ggplot2::xlim(c(-4.5, 4.5)) + ggplot2::ylim(c(-4.5, 4.5)) + 
+  ggplot2::coord_flip() + ggplot2::coord_equal() +
+  ggplot2::geom_hline(yintercept = 0, linetype = "dashed") + 
+  ggplot2::geom_vline(xintercept = 0, linetype = "dashed")
 ```

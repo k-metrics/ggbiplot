@@ -190,16 +190,27 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
 
   # データ用ラベルまたは点を描くになっているので、点とラベルを描くに変更
   # Draw either labels or points
+
+  # alphaチャネルが指定された場合は、文字の色を点の色と合わせるために
+  # 0.15～0.2程オフセットさせる
+  if(alpha > 0.8){
+    offset = 1 - alpha
+  } else {
+    offset = 0.15
+  }
+  
   if(!is.null(df.u$labels)) {
     if(!is.null(df.u$groups)) {
       g <- g + 
         ggplot2::geom_point(ggplot2::aes(color = groups), alpha = alpha) +
         ggrepel::geom_text_repel(ggplot2::aes(label = labels, color = groups), 
-                                 size = labels.size, family = family)
+                                 alpha = alpha + offset, size = labels.size,
+                                 family = family)
     } else {
       g <- g + 
         ggplot2::geom_point(alpha = alpha) + 
         ggrepel::geom_text_repel(ggplot2::aes(label = labels),
+                                 alpha = alpha + offset,
                                  size = labels.size, family = family)
     }
   # ラベルデータが指定されていない場合は点やIDを描く
@@ -209,7 +220,8 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
         g <- g +
           ggplot2::geom_point(ggplot2::aes(color = groups), alpha = alpha) +
           ggrepel::geom_text_repel(ggplot2::aes(label = id, color = groups),
-                                   size = labels.size, family = family)
+                                   alpha = alpha + offset, size = labels.size,
+                                   family = family)
       } else {
         g <- g +
           ggplot2::geom_point(ggplot2::aes(color = groups), alpha = alpha)
@@ -219,7 +231,8 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
         g <- g +
           ggplot2::geom_point(alpha = alpha) +
           ggrepel::geom_text_repel(ggplot2::aes(label = id),
-                                   size = labels.size, family = family)
+                                   alpha = alpha + offset, size = labels.size,
+                                   family = family)
       } else {
         g <- g +
           ggplot2::geom_point(alpha = alpha)
