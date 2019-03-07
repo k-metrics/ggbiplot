@@ -1,0 +1,184 @@
+---
+title: "Font Test for Windows"
+author: "Sampo Suzuki"
+date: "2019年3月7日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+
+require(tidyverse)
+
+# ggbiplot.rのファイル位置に合わせて変更してください
+source("./ggbiplot.r", encoding = 'UTF-8')
+```
+
+本ファイルは`ggbiplot`に日本語フォントを指定できるように改修に対するテスト用のコードを記載してあります。日本語フォントとして`Noto`フォントの利用を前提としていますので、`Noto`フォントがインストールされていない場合には [こちら（ファイルサイズは1.1GB） <i class="fa fa-external-link"></i>](https://www.google.com/get/noto/help/install/){target="_blank" title="Google Note Fonts"} からダウンロードするか、ソースのフォント指定を変更してください。
+
+
+# テスト用フォント設定
+```{r}
+windowsFonts(noto_serif = windowsFont("Noto Serif CJK JP"),
+             noto_sans = windowsFont("Noto Sans CJK JP"),
+             noto_mono = windowsFont("Noto Mono CJK JP"),
+             meiryo = windowsFont("Meiryo"),
+             colonna = windowsFont("Colonna MT"))
+
+windowsFonts()
+```
+
+
+#　動作確認
+## フォント未指定の場合
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl))
+```
+
+## 両方とも指定した場合
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           base_family = "noto_serif", family = "noto_serif")
+```
+
+## baseのみ指定した場合
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           base_family = "noto_serif")
+```
+
+## 変量名のみ指定した場合
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           family = "noto_serif")
+```
+
+# その他オプションとの併用
+## 変量名のみ指定し、ラベルを表示する
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           labels = row.names(mtcars), family = "noto_mono")
+```
+
+
+## 両方指定し、分類円（ellipse）を表示させる
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = TRUE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           labels = row.names(mtcars), 
+           base_family = "colonna", family = "noto_serif")
+```
+
+## ラベルサイズを変更する
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           labels = row.names(mtcars), labels.size = 3.5,
+           family = "noto_mono")
+```
+
+## 変量名サイズを変更する
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           labels = row.names(mtcars), varname.size = 4,
+           family = "noto_mono")
+```
+
+## ラベルを非表示にして変量番号（ID）を表示する
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           varname.size = 4, id = TRUE, 
+           family = "noto_mono")
+```
+
+# グループ表示をしない
+## ラベル表示
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = NULL,
+           labels = row.names(mtcars), varname.size = 4,
+           family = "noto_mono")
+```
+
+## ID表示
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = NULL,
+           varname.size = 4, id = TRUE, 
+           family = "noto_mono")
+```
+
+# ggplot2との連携確認
+
+## theme系
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           labels = row.names(mtcars), varname.size = 4,
+           family = "noto_mono") + 
+  ggplot2::theme_classic()
+```
+
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `1/4mile タイム` = qsec, `ミッション` = am) %>%
+  prcomp(scale. = FALSE) %>%
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
+           circle = TRUE, groups = as.factor(mtcars$cyl),
+           labels = row.names(mtcars), varname.size = 4,
+           family = "noto_mono") + 
+  ggplot2::theme_bw()
+```
+
+# サンプルデータ
+```{r}
+load("../data/wine.rda")
+wine %>% 
+  prcomp(scale. = TRUE) %>% 
+  ggbiplot(obs.scale = 1, var.scale = 1, ellipse = TRUE,
+           circle = TRUE, groups = wine.class, id = TRUE,
+           family = "noto_mono")
+```
