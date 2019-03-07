@@ -1,5 +1,5 @@
 ---
-title: "Font Test for Windows, Linux and macOS"
+title: "ggbiplot New Feature Test for Windows, Linux and macOS"
 author: "Sampo Suzuki"
 date: "2019年3月7日"
 output: html_document
@@ -22,13 +22,11 @@ if (Sys.info()[1] == "Windows") {
   family = c("meiryo")
 } else if (Sys.info()[1] == "Linux") {
   base_family = c("Noto Serif CJK JP")
-  family = c("Noto Mono CJK JP")
+  family = c("Noto Mono")
 } else {  # macOS
   base_famiry = c("HiraKakuPro-W3")
   family = c("HiraKakuProN-W3")
 }
-
-
 ```
 
 本ファイルは`ggbiplot`に日本語フォントを指定できるように改修に対するテスト用のコードを記載してあります。Linux環境では日本語フォントとして`Noto`フォントの利用を前提としていますので、`Noto`フォントがインストールされていない場合には [こちら（ファイルサイズは1.1GB） <i class="fa fa-external-link"></i>](https://www.google.com/get/noto/help/install/){target="_blank" title="Google Note Fonts"} からダウンロードするか、ソースのフォント指定を変更してください。Windows(7 or later)ならびにmacOSではデフォルトでインストールされているフォントを使っています。
