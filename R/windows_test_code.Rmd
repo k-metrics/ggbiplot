@@ -173,7 +173,7 @@ mtcars %>%
   ggplot2::theme_bw()
 ```
 
-# サンプルデータ
+# サンプルデータでの確認
 ```{r}
 load("../data/wine.rda")
 wine %>% 

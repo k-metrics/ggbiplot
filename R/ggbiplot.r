@@ -88,7 +88,8 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
     nobs.factor <- sqrt(nrow(pcobj$call$X))
     d <- unlist(sqrt(pcobj$eig)[1])
     u <- sweep(pcobj$ind$coord, 2, 1 / (d * nobs.factor), FUN = '*')
-    v <- sweep(pcobj$var$coord,2,sqrt(pcobj$eig[1:ncol(pcobj$var$coord),1]),FUN="/")
+    v <- sweep(pcobj$var$coord, 2, 
+               sqrt(pcobj$eig[1:ncol(pcobj$var$coord), 1]), FUN = "/")
   } else if(inherits(pcobj, "lda")) {
     nobs.factor <- sqrt(pcobj$N)
     d <- pcobj$svd
@@ -165,7 +166,6 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
   g <- ggplot2::ggplot(data = df.u, aes(x = xvar, y = yvar)) + 
          ggplot2::xlab(u.axis.labs[1]) + ggplot2::ylab(u.axis.labs[2]) +
          ggplot2::coord_equal() +
-    # テーマ全体に対するフォント指定（軸とか凡例で使われる）
          ggplot2::theme(text = ggplot2::element_text(family = base_family))
 
   # 座標を描く場合
@@ -179,7 +179,7 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
                            size = 1/2, alpha = 1/3)
     }
 
-    # 変量のベクトルを描く（変量名はどこで描く？）
+    # 変量のベクトルを描く（変量名はs最後に描く）
     # Draw directions
     g <- g +
       ggplot2::geom_segment(data = df.v,
@@ -188,21 +188,17 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
                             color = scales::muted('red'))
   }  # End of if(var.axis)
 
-  # データ用ラベルまたは点を描くになっているので、点とラベルを描くに変更する
+  # データ用ラベルまたは点を描くになっているので、点とラベルを描くに変更
   # Draw either labels or points
   if(!is.null(df.u$labels)) {
     if(!is.null(df.u$groups)) {
       g <- g + 
         ggplot2::geom_point(ggplot2::aes(color = groups), alpha = alpha) +
-        # ggplot2::geom_text(ggplot2::aes(label = labels, color = groups), 
-        #                    size = labels.size, family = family)
         ggrepel::geom_text_repel(ggplot2::aes(label = labels, color = groups), 
                                  size = labels.size, family = family)
     } else {
       g <- g + 
         ggplot2::geom_point(alpha = alpha) + 
-        # ggplot2::geom_text(ggplot2::aes(label = labels),
-        #                    size = labels.size, family = family)
         ggrepel::geom_text_repel(ggplot2::aes(label = labels),
                                  size = labels.size, family = family)
     }
