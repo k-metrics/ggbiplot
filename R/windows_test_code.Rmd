@@ -1,5 +1,5 @@
 ---
-title: "Font Test for Windows"
+title: "Font Test for Windows, Linux and macOS"
 author: "Sampo Suzuki"
 date: "2019年3月7日"
 output: html_document
@@ -19,13 +19,23 @@ source("./ggbiplot.r", encoding = 'UTF-8')
 
 # テスト用フォント設定
 ```{r}
-windowsFonts(noto_serif = windowsFont("Noto Serif CJK JP"),
-             noto_sans = windowsFont("Noto Sans CJK JP"),
-             noto_mono = windowsFont("Noto Mono CJK JP"),
-             meiryo = windowsFont("Meiryo"),
-             colonna = windowsFont("Colonna MT"))
+if (Sys.info()[1] == "Windows") {
+  windowsFonts(noto_serif = windowsFont("Noto Serif CJK JP"),
+               noto_sans = windowsFont("Noto Sans CJK JP"),
+               noto_mono = windowsFont("Noto Mono CJK JP"),
+               colonna = windowsFont("Colonna MT"))
+  base_family = c("noto_serif")
+  family = c("noto_mono")
+} else if (Sys.info()[1] == "Linux") {
+  base_family = c("Noto Serif CJK JP")
+  family = c("Noto Mono CJK JP")
+} else {  # macOS
+  base_famiry = c("HiraKakuPro-W3")
+  family = c("HiraKakuProN-W3")
+}
 
-windowsFonts()
+base_family
+family
 ```
 
 
@@ -46,7 +56,7 @@ mtcars %>%
   prcomp(scale. = FALSE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
-           base_family = "noto_serif", family = "noto_serif")
+           base_family = base_family, family = family)
 ```
 
 ## baseのみ指定した場合
@@ -56,7 +66,7 @@ mtcars %>%
   prcomp(scale. = FALSE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
-           base_family = "noto_serif")
+           base_family = base_family)
 ```
 
 ## 変量名のみ指定した場合
@@ -66,7 +76,7 @@ mtcars %>%
   prcomp(scale. = FALSE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
-           family = "noto_serif")
+           family = family)
 ```
 
 # その他オプションとの併用
@@ -77,7 +87,7 @@ mtcars %>%
   prcomp(scale. = FALSE) %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
-           labels = row.names(mtcars), family = "noto_mono")
+           labels = row.names(mtcars), family = family)
 ```
 
 
@@ -89,7 +99,7 @@ mtcars %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = TRUE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), 
-           base_family = "colonna", family = "noto_serif")
+           base_family = base_family, family = family)
 ```
 
 ## ラベルサイズを変更する
@@ -100,7 +110,7 @@ mtcars %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), labels.size = 3.5,
-           family = "noto_mono")
+           family = family)
 ```
 
 ## 変量名サイズを変更する
@@ -111,7 +121,7 @@ mtcars %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), varname.size = 4,
-           family = "noto_mono")
+           family = family)
 ```
 
 ## ラベルを非表示にして変量番号（ID）を表示する
@@ -122,7 +132,7 @@ mtcars %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            varname.size = 4, id = TRUE, 
-           family = "noto_mono")
+           family = family)
 ```
 
 # グループ表示をしない
@@ -134,7 +144,7 @@ mtcars %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = NULL,
            labels = row.names(mtcars), varname.size = 4,
-           family = "noto_mono")
+           family = family)
 ```
 
 ## ID表示
@@ -145,7 +155,7 @@ mtcars %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = NULL,
            varname.size = 4, id = TRUE, 
-           family = "noto_mono")
+           family = family)
 ```
 
 # ggplot2との連携確認
@@ -158,7 +168,7 @@ mtcars %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), varname.size = 4,
-           family = "noto_mono") + 
+           family = family) + 
   ggplot2::theme_classic()
 ```
 
@@ -169,7 +179,7 @@ mtcars %>%
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = FALSE,
            circle = TRUE, groups = as.factor(mtcars$cyl),
            labels = row.names(mtcars), varname.size = 4,
-           family = "noto_mono") + 
+           family = family) + 
   ggplot2::theme_bw()
 ```
 
@@ -180,5 +190,5 @@ wine %>%
   prcomp(scale. = TRUE) %>% 
   ggbiplot(obs.scale = 1, var.scale = 1, ellipse = TRUE,
            circle = TRUE, groups = wine.class, id = TRUE,
-           family = "noto_mono")
+           family = family)
 ```
