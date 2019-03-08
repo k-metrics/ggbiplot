@@ -1,7 +1,8 @@
 # 
 #  ggbiplot.r
 #  
-#  Copyright 2011 Vincent Q. Vu.
+#  Copyright 2019 Sampo Suzuki
+#  Original Source's Copyright 2011 Vincent Q. Vu.
 # 
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License
@@ -33,6 +34,7 @@
 #' @param labels.size     size of the text used for the labels
 #' @param alpha           alpha transparency value for the points (0 = transparent, 1 = opaque)
 #' @param circle          draw a correlation circle? (only applies when prcomp was called with scale = TRUE and when var.scale = 1)
+#' @param circle.prob     size of the correlation circle
 #' @param var.axes        draw arrows for the variables?
 #' @param varname.size    size of the text for variable names
 #' @param varname.adjust  adjustment factor the placement of the variable names, >= 1 means farther from the arrow
@@ -40,10 +42,11 @@
 #'
 #' New parameters
 #' @param base_family     ggplot2 theme's base font family
-#' @param family          ggplot2 object's font family for the labels and varname
-#' @param id              show (id = TRUE) id number for the observations
+#' @param family          ggplot2 text layer's font family for the labels and varname
+#' @param id              plot (id = TRUE) id number of the observations
 #'
 #' @return                a ggplot2 plot
+#' @import                ggrepel grid plyr scales tidyverse
 #' @export
 #' @examples
 #'   data(wine)
@@ -60,17 +63,15 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
                      varname.abbrev = FALSE,
                      base_family = NA, family = NA, id = FALSE, ...)
 {
-  if (!require(ggrepel)) { stop("Package `ggrepel` required.") }
-  if (!require(grid)) { stop("Package `grid` required.") }
-  if (!require(plyr)) { stop("Package `plyr` required.") }
-  if (!require(scales)) { stop("Package `scales` required.") }
-  if (!require(tidyverse)) { stop("Package `tidyverse` required.") }
-
-  # library(ggplot2)
-  # library(plyr)     # elipseオプションで利用
-  # library(scales)   # Scale Functions for Visualization
-  # library(grid)     # 矢印を描くのに利用
-
+  # パッケージ化の際にはコメントアウトまたは削除する
+  # DESCRIPTIONのDependsならびにNAMESPACEで定義しているためパッケージを
+  # 読みこむと自動的に読み込まれるようになるため
+  # if (!require(ggrepel)) { stop("Package `ggrepel` required.") }
+  # if (!require(grid)) { stop("Package `grid` required.") }
+  # if (!require(plyr)) { stop("Package `plyr` required.") }
+  # if (!require(scales)) { stop("Package `scales` required.") }
+  # if (!require(tidyverse)) { stop("Package `tidyverse` required.") }
+  
   stopifnot(length(choices) == 2)
 
   # Recover the SVD
@@ -158,15 +159,16 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
   
   # 識別番号
   df.u <- df.u %>% 
-    tibble::rowid_to_column("id")
+    rowid_to_column("id")
 
   ############################################################################
-  # ここからが描画処理
+  # ここからが描画処理（主な変更部分）
+  ############################################################################
+
   # Base plot
-  g <- ggplot2::ggplot(data = df.u, aes(x = xvar, y = yvar)) + 
-         ggplot2::xlab(u.axis.labs[1]) + ggplot2::ylab(u.axis.labs[2]) +
-         ggplot2::coord_equal() +
-         ggplot2::theme(text = ggplot2::element_text(family = base_family))
+  g <- ggplot(data = df.u, aes(x = xvar, y = yvar)) + 
+    xlab(u.axis.labs[1]) + ylab(u.axis.labs[2]) +
+    coord_equal() + theme(text = element_text(family = base_family))
 
   # 変量の矢印（ベクトル）を描く場合
   if(var.axes) {
@@ -174,22 +176,17 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
     if(circle) {
       theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
       circle <- data.frame(xvar = r * cos(theta), yvar = r * sin(theta))
-      g <- g + 
-        ggplot2::geom_path(data = circle, color = scales::muted('white'),
-                           size = 1/2, alpha = 1/3)
+      g <- g + geom_path(data = circle, color = scales::muted('white'),
+                         size = 1 / 2, alpha = 1 / 3)
     }
 
     # 変量のベクトルを描く（変量名は最後に描く）
     # Draw directions
-    g <- g +
-      ggplot2::geom_segment(data = df.v,
-                            aes(x = 0, y = 0, xend = xvar, yend = yvar),
-                            arrow = grid::arrow(length = unit(1/2, 'picas')), 
-                            color = scales::muted('red'))
+    g <- g + geom_segment(data = df.v,
+                          aes(x = 0, y = 0, xend = xvar, yend = yvar),
+                          arrow = grid::arrow(length = unit(1/2, 'picas')), 
+                          color = scales::muted('red'))
   }  # End of if(var.axis)
-
-  # データ用ラベルまたは点を描くになっているので、点とラベルを描くに変更
-  # Draw either labels or points
 
   # alphaチャネルが指定された場合は、文字の色を点の色調を合わせるために
   # 0.15～0.2程オフセットさせる（0.8以上はオフセットさせない）
@@ -199,43 +196,40 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
     offset = 0.15
   }
   
+  # データ用ラベルまたは点を描くになっているので、点とラベルを描くに変更
+  # Draw either labels or points
+
   if(!is.null(df.u$labels)) {
     if(!is.null(df.u$groups)) {
-      g <- g + 
-        ggplot2::geom_point(ggplot2::aes(color = groups), alpha = alpha) +
-        ggrepel::geom_text_repel(ggplot2::aes(label = labels, color = groups), 
+      g <- g + geom_point(aes(color = groups), alpha = alpha) +
+        ggrepel::geom_text_repel(aes(label = labels, color = groups), 
                                  alpha = alpha + offset, size = labels.size,
                                  family = family)
     } else {
-      g <- g + 
-        ggplot2::geom_point(alpha = alpha) + 
-        ggrepel::geom_text_repel(ggplot2::aes(label = labels),
-                                 alpha = alpha + offset,
-                                 size = labels.size, family = family)
+      g <- g + geom_point(alpha = alpha) + 
+        ggrepel::geom_text_repel(aes(label = labels),
+                                 alpha = alpha + offset, size = labels.size,
+                                 family = family)
     }
   # ラベルデータが指定されていない場合は点やIDを描く
   } else {
     if(!is.null(df.u$groups)) {
       if ( id == TRUE ) {
-        g <- g +
-          ggplot2::geom_point(ggplot2::aes(color = groups), alpha = alpha) +
-          ggrepel::geom_text_repel(ggplot2::aes(label = id, color = groups),
+        g <- g + geom_point(aes(color = groups), alpha = alpha) +
+          ggrepel::geom_text_repel(aes(label = id, color = groups),
                                    alpha = alpha + offset, size = labels.size,
                                    family = family)
       } else {
-        g <- g +
-          ggplot2::geom_point(ggplot2::aes(color = groups), alpha = alpha)
+        g <- g + geom_point(aes(color = groups), alpha = alpha)
       }
     } else {
       if ( id == TRUE ) {
-        g <- g +
-          ggplot2::geom_point(alpha = alpha) +
-          ggrepel::geom_text_repel(ggplot2::aes(label = id),
+        g <- g + geom_point(alpha = alpha) +
+          ggrepel::geom_text_repel(aes(label = id),
                                    alpha = alpha + offset, size = labels.size,
                                    family = family)
       } else {
-        g <- g +
-          ggplot2::geom_point(alpha = alpha)
+        g <- g + geom_point(alpha = alpha)
       }
     }
   }
@@ -256,28 +250,17 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
                  groups = x$groups[1])
     })
     names(ell)[1:2] <- c('xvar', 'yvar')
-    g <- g + 
-      ggplot2::geom_path(data = ell,
-                         ggplot2::aes(color = groups, group = groups))
+    g <- g + geom_path(data = ell, aes(color = groups, group = groups))
   }
 
   # Label（矢印の先に描かれる変量名） the variable axes
   if(var.axes) {
-    g <- g + 
-      ggplot2::geom_text(data = df.v, 
-                         ggplot2::aes(label = varname, x = xvar, y = yvar, 
-                                      angle = angle, hjust = hjust), 
-                         color = 'darkred', size = varname.size,
-                         family = family)
+    g <- g + geom_text(data = df.v, 
+                       aes(label = varname, x = xvar, y = yvar, 
+                           angle = angle, hjust = hjust), 
+                       color = 'darkred', size = varname.size,
+                       family = family)
   }
-
-  # Change the name of the legend for groups
-  # if(!is.null(groups)) {
-  #   g <- g + scale_color_brewer(name = deparse(substitute(groups)), 
-  #                               palette = 'Dark2')
-  # }
-
-  # TODO: Add a second set of axes
 
   return(g)
 }
