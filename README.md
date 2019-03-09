@@ -1,17 +1,15 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**ATTENTION**
-パッケージ化作業中です。ご利用の際には`ggbiplot.r`ファイルをダウンロードして、`source`してご利用ください。
+**ATTENTION**  
+パッケージをpre-releaseしました。以下のコマンドでインストールできます。  
+> devtools::install_github("k-metrics/ggbiplot")
 
-**ABOUT**
-このリポジトリでは`vqv/ggbiplot`リポジトリ(2015/6頃から開発中断？)をフォークし、日本語表示のためのフォント指定などを追加したバージョンを開発しています。
-
-**BASE REPOSITORY**
-本リポジトリは [vqv/ggbiplot v0.55](https://github.com/vqv/ggbiplot) をベースにし [nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot) での修正を参考にしています。
+**ABOUT**  
+本リポジトリは3年以上開発が行われていない [vqv/ggbiplot v0.55](https://github.com/vqv/ggbiplot) リポジトリをフォークし [nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot) リポジトリでの修正を参考にしています。
 
 主な変更点
 ==========
 
-v0.55.1 - ggbiplot.r
+v0.55.1 - update ggbiplot.r
 --------------------
 
 -   日本語フォントを指定てきるように以下のパラメータを追加
@@ -22,6 +20,7 @@ v0.55.1 - ggbiplot.r
 -   ラベル表示に`ggreple`パッケージを用いることでラベルが重なることを防止
 -   ラベルまたはIDとポイント（点）が同時に表示できるように変更
 -   アルファチャネル（`alpha`）の指定がラベルまたはIDにも反映するように変更
+-   `ggscreeplot`関数は未変更です
 
 > データの変数名に日本語が含まれているとmacOS環境で豆腐文字になってしまうのを回避するためにフォント指定のパラメータを追加してあります。macOS環境で日本語の変数名やラベルを表示する場合、少なくとも`family`パラメータにフォント名を指定してください。
 
