@@ -1,20 +1,26 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**ATTENTION**  
-パッケージをpre-releaseしました。以下のコマンドでインストールできます。  
-> devtools::install_github("k-metrics/ggbiplot")
+**NEW**  
+パッケージをpre-releaseしました。以下のコマンドでインストールできます。お問い合わせなどはissue
+boradからお願いします。
+
+> devtools::install\_github(“k-metrics/ggbiplot”)
 
 **ABOUT**  
-本リポジトリは3年以上開発が行われていない [vqv/ggbiplot v0.55](https://github.com/vqv/ggbiplot) リポジトリをフォークし [nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot) リポジトリでの修正を参考にしています。
+本リポジトリは3年以上開発が行われていない [vqv/ggbiplot
+v0.55](https://github.com/vqv/ggbiplot) リポジトリをフォークし
+[nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot)
+リポジトリでの修正を参考にしています。
 
 主な変更点
 ==========
 
-v0.55.1 - update ggbiplot.r
+v0.55.1 - ggbiplot.r
 --------------------
 
 -   日本語フォントを指定てきるように以下のパラメータを追加
     -   `base_family` - ggplot2のテーマに対するフォント指定
-    -   `family` - 変数名やラベル名などのテキスト描画関数に対するフォント指定
+    -   `family` -
+        変数名やラベル名などのテキスト描画関数に対するフォント指定
 -   ラベルを表示しない場合にIDを表示できるように以下のパラメータを追加
     -   `id` - プロットする（`TRUE`）/しない（`FALSE`, デフォルト）
 -   ラベル表示に`ggreple`パッケージを用いることでラベルが重なることを防止
@@ -27,9 +33,11 @@ v0.55.1 - update ggbiplot.r
 ggbiplot
 ========
 
-An implementation of the biplot using ggplot2. The package provides two functions: `ggscreeplot()` and `ggbiplot()`. `ggbiplot` aims to be a drop-in replacement for the built-in R function `biplot.princomp()` with extended functionality for labeling groups, drawing a correlation circle, and adding Normal probability ellipsoids.
-
-*The development of this software was supported in part by NSF Postdoctoral Fellowship DMS-0903120*
+An implementation of the biplot using ggplot2. The package provides two
+functions: `ggscreeplot()` and `ggbiplot()`. `ggbiplot` aims to be a
+drop-in replacement for the built-in R function `biplot.princomp()` with
+extended functionality for labeling groups, drawing a correlation
+circle, and adding Normal probability ellipsoids.
 
 Installation
 ------------
