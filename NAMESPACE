@@ -1,2 +1,8 @@
 export(ggbiplot)
 export(ggscreeplot)
+import(ggrepel)
+import(grid)
+import(plyr)
+import(scales)
+import(tidyverse)
+importFrom(stats, "predict", "qchisq", "var")

@@ -2,12 +2,15 @@
 \alias{ggbiplot}
 \title{Biplot for Principal Components using ggplot2}
 \usage{
-  ggbiplot(pcobj, choices = 1:2, scale = 1, pc.biplot =
-  TRUE, obs.scale = 1 - scale, var.scale = scale, groups =
-  NULL, ellipse = FALSE, ellipse.prob = 0.68, labels =
-  NULL, labels.size = 3, alpha = 1, var.axes = TRUE, circle
-  = FALSE, circle.prob = 0.69, varname.size = 3,
-  varname.adjust = 1.5, varname.abbrev = FALSE, ...)
+  ggbiplot(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE, 
+           obs.scale = 1 - scale, var.scale = scale, 
+           groups = NULL, ellipse = FALSE, ellipse.prob = 0.68, 
+           labels = NULL, labels.size = 3, alpha = 1, 
+           var.axes = TRUE, 
+           circle = FALSE, circle.prob = 0.69, 
+           varname.size = 3, varname.adjust = 1.5, 
+           varname.abbrev = FALSE,
+           base_family = NA, family = NA, id = FALSE, ...)
 }
 \arguments{
   \item{pcobj}{an object returned by prcomp() or
@@ -49,6 +52,8 @@
   \item{circle}{draw a correlation circle? (only applies
   when prcomp was called with scale = TRUE and when
   var.scale = 1)}
+  
+  \item{circle.prob}{size of the correlation circle}
 
   \item{var.axes}{draw arrows for the variables?}
 
@@ -59,6 +64,16 @@
 
   \item{varname.abbrev}{whether or not to abbreviate the
   variable names}
+  
+  \item{base_family}{ggplot2 theme's base font family}
+  
+  \item{family}{ggplot2 text layer's font family for the labels and varname,
+  Japanese macOS require this option with japanese data}
+  
+  \item{id}{plot id number of the observations (id = TRUE)
+  It's a contrary labels plot}
+  
+  \item{...}{currently invaild}
 }
 \value{
   a ggplot2 plot
@@ -69,6 +84,7 @@
 \examples{
 data(wine)
 wine.pca <- prcomp(wine, scale. = TRUE)
-print(ggbiplot(wine.pca, obs.scale = 1, var.scale = 1, groups = wine.class, ellipse = TRUE, circle = TRUE))
+print(ggbiplot(wine.pca, obs.scale = 1, var.scale = 1, groups = wine.class,
+      ellipse = TRUE, circle = TRUE))
 }
 

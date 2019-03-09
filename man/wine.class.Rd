@@ -1,17 +1,19 @@
-\name{wine}
-\alias{wine}
+\name{wine.class}
+\alias{wine.class}
 \docType{data}
 \title{
-Chemical composition of three cultivars of wine
+Name of three cultivars of wine
 }
 \description{
-Chemical constituents of wines from three different cultivars grown in the same region in Italy.  The cultivars,
-'barolo', 'barbera', and 'grignolino', are indicated in wine.class.
+Chemical constituents of wines from three different cultivars grown
+in the same region in Italy.
+The cultivars, 'barolo', 'barbera', and 'grignolino', are indicated
+in wine.class.
 }
 \usage{data(wine)}
 \format{
   The format is:
- chr "wine"
+ chr "wine.class"
 }
 \source{
 http://archive.ics.uci.edu/ml/datasets/Wine
