@@ -44,14 +44,21 @@
 #' @param base_family     ggplot2 theme's base font family
 #' @param family          ggplot2 text layer's font family for the labels and varname
 #' @param id              plot (id = TRUE) id number of the observations
+#' @param ...             currentry invaild
 #'
 #' @return                a ggplot2 plot
-#' @import                ggrepel grid plyr scales tidyverse
 #' @export
+#' @import                tidyverse
+#' @importFrom            ggrepel geom_label_repel
+#' @importFrom            grid arrow
+#' @importFrom            plyr ddply
+#' @importFrom            scales muted
+#' @importFrom            stats predict qchisq var
 #' @examples
 #'   data(wine)
 #'   wine.pca <- prcomp(wine, scale. = TRUE)
-#'   print(ggbiplot(wine.pca, obs.scale = 1, var.scale = 1, groups = wine.class, ellipse = TRUE, circle = TRUE))
+#'   ggbiplot(wine.pca, obs.scale = 1, var.scale = 1, groups = wine.class,
+#'     ellipse = TRUE, circle = TRUE)
 #'
 ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE, 
                      obs.scale = 1 - scale, var.scale = scale, 
@@ -63,15 +70,7 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
                      varname.abbrev = FALSE,
                      base_family = NA, family = NA, id = FALSE, ...)
 {
-  # パッケージ化の際にはコメントアウトまたは削除する
-  # DESCRIPTIONのDependsならびにNAMESPACEで定義しているためパッケージを
-  # 読みこむと自動的に読み込まれるようになるため
-  # if (!require(ggrepel)) { stop("Package `ggrepel` required.") }
-  # if (!require(grid)) { stop("Package `grid` required.") }
-  # if (!require(plyr)) { stop("Package `plyr` required.") }
-  # if (!require(scales)) { stop("Package `scales` required.") }
-  # if (!require(tidyverse)) { stop("Package `tidyverse` required.") }
-  
+
   stopifnot(length(choices) == 2)
 
   # Recover the SVD
@@ -157,12 +156,12 @@ ggbiplot <- function(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
   df.v$angle <- with(df.v, (180/pi) * atan(yvar / xvar))
   df.v$hjust = with(df.v, (1 - varname.adjust * sign(xvar)) / 2)
   
-  # 識別番号
+  # data DI
   df.u <- df.u %>% 
     rowid_to_column("id")
 
   ############################################################################
-  # ここからが描画処理（主な変更部分）
+  # 描画処理はこれ以降
   ############################################################################
 
   # Base plot
