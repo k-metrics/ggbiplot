@@ -29,7 +29,7 @@ if (Sys.info()[1] == "Windows") {
   base_family = c("Noto Serif CJK JP")
   family = c("Noto Mono")
 } else {  # macOS
-  base_famiry = c("HiraKakuPro-W3")
+  base_family = c("HiraKakuPro-W3")
   family = c("Osaka")
 }
 ```
