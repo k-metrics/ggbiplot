@@ -1,7 +1,7 @@
 Package: ggbiplot
 Type: Package
 Title: A ggplot2 based biplot
-Version: 0.55.3
+Version: 0.55.4
 Date: 2019-03-09
 Author: Sampo Suzuki
 Maintainer: Sampo Suzuki <24760577+k-metrics@users.noreply.github.com>
@@ -18,3 +18,7 @@ BugReports: https://github.com/k-metrics/ggbiplot/issues
 URL: http://github.com/k-metrics/ggbiplot
 Collate: 'ggbiplot.r' 'ggscreeplot.r'
 RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

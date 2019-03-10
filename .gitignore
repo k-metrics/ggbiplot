@@ -1,4 +1,5 @@
+inst/doc
+tools/
 .Rproj.user
 .Rhistory
 .RData
-_test/*

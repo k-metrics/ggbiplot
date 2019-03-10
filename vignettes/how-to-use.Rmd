@@ -1,0 +1,78 @@
+---
+title: "Function ggbiplot"
+author: "Sampo Suzuki"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7, fig.height = 5
+)
+
+require(tidyverse)
+```
+
+`ggbiplot`関数は主成分分析の結果を`ggplot2`パッケージベースで描画する関数です。オリジナルの`ggbiplot`関数はmacOS環境において日本語が正しく表示されないのでフォント指定のオプションを追加しました。また、データラベルの代わりにデータIDを表示できる`id`オプションも追加してあります。  
+なお、ラベルテキストやID表示には`ggreple`パッケージを用いていますのでデータの数が多い場合にはテキスト表示処理に時間がかかることがあります。  
+　  
+
+
+## フォントの指定
+`ggbiplot`関数ではフォントを指定するための以下の二つの引数（オプション）を用意してあります。
+
+* base_family
+* family
+
+### base_family オプション
+`base_family`オプションは描くグラフ全体に対するフォントを指定できます。ただし、macOS環境ではグラフ内のテキスト（ラベル名、変量名）には適用されませんので、`family`オプションで指定する必要があります。  
+
+
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     labels = row.names(mtcars),
+                     base_family = "Noto Mono")
+```
+
+
+### family オプション
+`family`オプションはグラフ内のテキスト（ラベル名、変量名）を描くフォントを指定するためのオプションです。macOSで日本語を表示したい場合は、このオプションに日本語フォントを指定してください。
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     labels = row.names(mtcars),
+                     family = "Noto Mono")
+```
+
+
+## id オプション
+`id`オプションを使うとラベルではなくデータのIDを表示することができます。`id`オプションを利用する場合には`labels`オプションを指定しないでください。
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     id = TRUE,
+                     family = "Noto Mono")
+```
+
+
+## mtcars
+
+```{r, echo=FALSE, results='asis'}
+head(mtcars, 10) %>% 
+  # tibble::rowid_to_column("id") %>% 
+  knitr::kable()
+```
+
