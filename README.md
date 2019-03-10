@@ -3,8 +3,7 @@
 パッケージをpre-releaseしました。以下のコマンドでインストールできます。お問い合わせなどは
 [issue](https://github.com/k-metrics/ggbiplot/issues) からお願いします。
 
-> devtools::install\_github(“k-metrics/ggbiplot”, build\_opts =
-> c(“–no-resave-data”, “–no-manual”))
+    devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
 
 **ABOUT**  
 本リポジトリは3年以上開発が行われていない [vqv/ggbiplot

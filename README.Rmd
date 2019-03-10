@@ -8,8 +8,9 @@ output:
 
 **NEW**  
 パッケージをpre-releaseしました。以下のコマンドでインストールできます。お問い合わせなどは [issue](https://github.com/k-metrics/ggbiplot/issues) からお願いします。  
-
-> devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
+```
+devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
+```
 
 
 **ABOUT**  
