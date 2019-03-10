@@ -3,7 +3,8 @@
 パッケージをpre-releaseしました。以下のコマンドでインストールできます。お問い合わせなどは
 [issue](https://github.com/k-metrics/ggbiplot/issues) からお願いします。
 
-> devtools::install\_github(“k-metrics/ggbiplot”)
+> devtools::install\_github(“k-metrics/ggbiplot”, build\_opts =
+> c(“–no-resave-data”, “–no-manual”))
 
 **ABOUT**  
 本リポジトリは3年以上開発が行われていない [vqv/ggbiplot
@@ -17,13 +18,9 @@ v0.55](https://github.com/vqv/ggbiplot) リポジトリをフォークし
 v0.55.4
 -------
 
--   Vignetteを追加しました
+-   Vignettesを追加しました
 
-> devtools::install\_githubを使ってインストールするとvignette（ユーザーガイド的なドキュメント）が展開されないという問題を確認しています。vignetteが必要な方は
-> [Release](https://github.com/k-metrics/ggbiplot/releases/tag/v0.55.4)
-> から`tar.gz`ファイルをダウンロードし、ファイルからインストールしてください。この問題は
-> [issues](https://github.com/k-metrics/ggbiplot/issues/1)
-> にてトラッキングします。
+> `devtools::install_github`関数は`build_opts`に`--no-build-vignettes`がデフォルト指定されており、デフォルトではvignettesが展開されないようになっています。vignettesを展開するには上記の**NEW**にあるように`build_opts`を指定してください。
 
 v0.55.3
 -------
