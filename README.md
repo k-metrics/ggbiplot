@@ -1,7 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 **NEW**  
-パッケージをpre-releaseしました。以下のコマンドでインストールできます。お問い合わせなどはissue
-boradからお願いします。
+パッケージをpre-releaseしました。以下のコマンドでインストールできます。お問い合わせなどは
+[issue](https://github.com/k-metrics/ggbiplot/issues) からお願いします。
 
 > devtools::install\_github(“k-metrics/ggbiplot”)
 
@@ -13,6 +13,11 @@ v0.55](https://github.com/vqv/ggbiplot) リポジトリをフォークし
 
 主な変更点
 ==========
+
+v0.55.3
+-------
+
+-   パッケージの依存関係（Depends, Imports）を修正しました
 
 v0.55.2
 -------
