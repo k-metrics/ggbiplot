@@ -17,7 +17,13 @@ v0.55](https://github.com/vqv/ggbiplot) リポジトリをフォークし
 v0.55.4
 -------
 
--   Vignettesを追加しました
+-   Vignetteを追加しました
+
+> devtools::install\_githubを使ってインストールするとvignette（ユーザーガイド的なドキュメント）が展開されないという問題を確認しています。vignetteが必要な方は
+> [Release](https://github.com/k-metrics/ggbiplot/releases/tag/v0.55.4)
+> から`tar.gz`ファイルをダウンロードし、ファイルからインストールしてください。この問題は
+> [issues](https://github.com/k-metrics/ggbiplot/issues/1)
+> にてトラッキングします。
 
 v0.55.3
 -------
