@@ -21,10 +21,18 @@ devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data"
 主な変更点
 ==========
 
+v0.55.5
+-------
+* Vignetteにおけるフォント設定を各環境に合わせて設定するように変更
+
+
+> Vignettesはパッケージインストール時にbuildされるためにbuild環境に合わせて指定する必要があるためです。
+
+
 v0.55.4
 -------
 
-* Vignettesを追加しました
+* Vignetteを追加しました
 
 
 > `devtools::install_github`関数は`build_opts`に`--no-build-vignettes`がデフォルト指定されており、デフォルトではvignettesが展開されないようになっています。vignettesを展開するには上記の**NEW**にあるように`build_opts`を指定してください。

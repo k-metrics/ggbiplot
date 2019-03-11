@@ -4,7 +4,7 @@ author: "Sampo Suzuki"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Usage Sample, Japanese Fonts required}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,6 +17,19 @@ knitr::opts_chunk$set(
 )
 
 require(tidyverse)
+
+if (Sys.info()[1] == "Windows") {
+  windowsFonts(ms_pmin = windowsFont("ＭＳ Ｐ明朝"),
+               ms_got = windowsFont("ＭＳ ゴシック"))
+  base_family = c("ms_pmin")
+  family = c("ms_got")
+} else if (Sys.info()[1] == "Linux") {
+  base_family = c("Noto Serif CJK JP")
+  family = c("Noto Mono")
+} else {  # macOS
+  base_family = c("HiraKakuPro-W3")
+  family = c("Osaka")
+}
 ```
 
 `ggbiplot`関数は主成分分析の結果を`ggplot2`パッケージベースで描画する関数です。オリジナルの`ggbiplot`関数はmacOS環境において日本語が正しく表示されないのでフォント指定のオプションを追加しました。また、データラベルの代わりにデータIDを表示できる`id`オプションも追加してあります。  
@@ -30,6 +43,15 @@ require(tidyverse)
 * base_family
 * family
 
+本vignetteで指定しているフォントは以下の通りです。以下のフォントインストールされていない場合には各チャンクでワーニングが表示され図のテキストが意図通り表示されません。  
+
+　          | Linux             | macOS          | Windows
+------------|-------------------|----------------|--------------
+base_family | Noto Serif CJK JP | HiraKakuPro-W3 | ＭＳ Ｐ明朝
+family      | Noto Mono         | Osaka          | ＭＳ ゴシック
+
+
+
 ### base_family オプション
 `base_family`オプションは描くグラフ全体に対するフォントを指定できます。ただし、macOS環境ではグラフ内のテキスト（ラベル名、変量名）には適用されませんので、`family`オプションで指定する必要があります。  
 
@@ -40,7 +62,7 @@ mtcars %>%
   prcomp(scale. = TRUE) %>%
   ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
                      labels = row.names(mtcars),
-                     base_family = "Noto Mono")
+                     base_family = base_family)
 ```
 
 
@@ -52,24 +74,23 @@ mtcars %>%
   prcomp(scale. = TRUE) %>%
   ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
                      labels = row.names(mtcars),
-                     family = "Noto Mono")
+                     family = family)
 ```
 
 
 ## id オプション
-`id`オプションを使うとラベルではなくデータのIDを表示することができます。`id`オプションを利用する場合には`labels`オプションを指定しないでください。
+`id`オプションを使うとラベルではなくデータのIDを表示することができます。`id`オプションを利用する場合には`labels`オプションを指定しないでください。`labels`オプションを指定した場合は`labels`オプションの指定が優先されます（IDは表示されません）。
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
   prcomp(scale. = TRUE) %>%
   ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
                      id = TRUE,
-                     family = "Noto Mono")
+                     family = family)
 ```
 
 
 ## mtcars
-
 ```{r, echo=FALSE, results='asis'}
 head(mtcars, 10) %>% 
   # tibble::rowid_to_column("id") %>% 

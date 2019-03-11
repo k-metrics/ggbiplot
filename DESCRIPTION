@@ -1,8 +1,8 @@
 Package: ggbiplot
 Type: Package
 Title: A ggplot2 based biplot
-Version: 0.55.4
-Date: 2019-03-09
+Version: 0.55.5
+Date: 2019-03-11
 Author: Sampo Suzuki
 Maintainer: Sampo Suzuki <24760577+k-metrics@users.noreply.github.com>
 Description: A ggplot2 based biplot, originated Vincent Q. Vu's ggbiplot.
