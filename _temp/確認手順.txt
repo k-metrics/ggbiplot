@@ -2,7 +2,7 @@
 
 1) RStudioでGitHubから`ggbiplot`パッケージをインストールする。ただし、vignettesを展開して欲しいので以下のコマンドを使う。
 
-　devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
+　devtools::install_github("k-metrics/ggbiplot", ref = "feature/vignettes", build_opts = c("--no-resave-data", "--no-manual"))
 
 2) インストールした`ggbiplot`のバージョンを[Package]タブで確認する
 
