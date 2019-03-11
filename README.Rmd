@@ -23,6 +23,7 @@ devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data"
 
 v0.55.5
 -------
+
 * Vignetteにおけるフォント設定を各環境に合わせて設定するように変更
 
 
