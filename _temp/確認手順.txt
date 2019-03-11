@@ -1,0 +1,28 @@
+手順など
+
+1) RStudioでGitHubから`ggbiplot`パッケージをインストールする。ただし、vignettesを展開して欲しいので以下のコマンドを使う。
+
+　devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
+
+2) インストールした`ggbiplot`のバージョンを[Package]タブで確認する
+
+　0.55.5
+
+3) [Package]タブの`ggbiplot`をクリックする
+
+　[Help]タブに遷移し、`ggboplot` v0.55.5のヘルプが表示される
+　表示されたヘルプに"User guides, package vignettes and other documentation."というリンクがあるのを確認する
+
+4) "User guides, package vignettes and other documentation."をクリックする
+
+　"Vignettes from package 'ggbiplot'"に遷移する
+　"ggbiplot::how-to-use"というリンクがあるのを確認する
+
+5) "ggbiplot::how-to-use"をクリックする
+
+　Function ggbiplotというページが表示され、チャンクと図の間にフォントが見つからない旨のエラーメッセージが表示されていない
+　family オプションの方の図に「馬力」、「廃棄量」、「車重」の日本語がOsakaフォントで表示されている
+
+6) 先日LINEで送ったテスト用ファイルの`source`の行をコメントアウトし、`library(ggbiplot)`に置き換える
+
+　chunk内のコードが実行され、グラフ内に日本語が表示される
