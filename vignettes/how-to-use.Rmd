@@ -1,5 +1,5 @@
 ---
-title: "Function ggbiplot"
+title: "ggbiplot関数の使い方"
 author: "Sampo Suzuki"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -19,10 +19,10 @@ knitr::opts_chunk$set(
 require(tidyverse)
 
 if (Sys.info()[1] == "Windows") {
-  windowsFonts(ms_pmin = windowsFont("ＭＳ Ｐ明朝"),
-               ms_got = windowsFont("ＭＳ ゴシック"))
-  base_family = c("ms_pmin")
-  family = c("ms_got")
+  windowsFonts(`MS P明朝` = windowsFont("ＭＳ Ｐ明朝"),
+               `MS ゴシック` = windowsFont("ＭＳ ゴシック"))
+  base_family = c("MS P明朝")
+  family = c("MS ゴシック")
 } else if (Sys.info()[1] == "Linux") {
   base_family = c("Noto Serif CJK JP")
   family = c("Noto Mono")
@@ -32,30 +32,28 @@ if (Sys.info()[1] == "Windows") {
 }
 ```
 
-`ggbiplot`関数は主成分分析の結果を`ggplot2`パッケージベースで描画する関数です。オリジナルの`ggbiplot`関数はmacOS環境において日本語が正しく表示されないのでフォント指定のオプションを追加しました。また、データラベルの代わりにデータIDを表示できる`id`オプションも追加してあります。  
+`ggbiplot`関数は主成分分析の結果を`ggplot2`パッケージベースで描画する関数です。オリジナルの`ggbiplot`関数はmacOS環境において日本語が正しく表示されないためにフォント指定のオプションを追加することで対応しました。また、データラベルの代わりにデータIDを表示できる`id`オプションも追加してあります。  
 なお、ラベルテキストやID表示には`ggreple`パッケージを用いていますのでデータの数が多い場合にはテキスト表示処理に時間がかかることがあります。  
 　  
 
 
 ## フォントの指定
-`ggbiplot`関数ではフォントを指定するための以下の二つの引数（オプション）を用意してあります。
+`ggbiplot`関数ではフォントを指定するための以下の二つの引数（オプション）を用意してあります。  
 
 * base_family
 * family
 
-本vignetteで指定しているフォントは以下の通りです。以下のフォントインストールされていない場合には各チャンクでワーニングが表示され図のテキストが意図通り表示されません。  
+本vignetteで指定しているフォントは以下の通りです。以下のフォントがインストールされていない場合には各チャンクでワーニングが表示され図のテキストが意図通り表示されません。`Current Setting`がお使いの環境のフォントと異なる場合には [issues <i class="fa fa-external-link"></i>](https://github.com/k-metrics/ggbiplot/issues){target="_blank" title="GitHub"} からご連絡ください。  
 
-　          | Linux             | macOS          | Windows
-------------|-------------------|----------------|--------------
-base_family | Noto Serif CJK JP | HiraKakuPro-W3 | ＭＳ Ｐ明朝
-family      | Noto Mono         | Osaka          | ＭＳ ゴシック
+Option / OS | Linux             | macOS          | Windows       | Current Setting
+------------|-------------------|----------------|---------------|:-------:
+**base_family** | Noto Serif CJK JP | HiraKakuPro-W3 | ＭＳ Ｐ明朝   | **`r base_family`** 
+**family**      | Noto Mono         | Osaka          | ＭＳ ゴシック | **`r family`**
 
-
+　  
 
 ### base_family オプション
-`base_family`オプションは描くグラフ全体に対するフォントを指定できます。ただし、macOS環境ではグラフ内のテキスト（ラベル名、変量名）には適用されませんので、`family`オプションで指定する必要があります。  
-
-
+`base_family`オプションは描くグラフのテーマに対するフォントを指定できます。ただし、グラフ内テキスト（ラベル名、変量名）には適用されませんので、グラフ内テキストのフォントを指定する場合は後述の`family`オプションを使用してください。
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
@@ -65,9 +63,10 @@ mtcars %>%
                      base_family = base_family)
 ```
 
+　  
 
 ### family オプション
-`family`オプションはグラフ内のテキスト（ラベル名、変量名）を描くフォントを指定するためのオプションです。macOSで日本語を表示したい場合は、このオプションに日本語フォントを指定してください。
+`family`オプションはグラフ内のテキスト（ラベル名、変量名）を描くフォントを指定するためのオプションです。macOSで日本語テキストを表示したい場合は、このオプションに必ず日本語フォントを指定してください。
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
@@ -77,23 +76,121 @@ mtcars %>%
                      family = family)
 ```
 
+　  
 
 ## id オプション
-`id`オプションを使うとラベルではなくデータのIDを表示することができます。`id`オプションを利用する場合には`labels`オプションを指定しないでください。`labels`オプションを指定した場合は`labels`オプションの指定が優先されます（IDは表示されません）。
+`id`オプションを使うことでラベルではなくデータのIDを表示することができます。`id`オプションを使用する場合には`labels`オプションを指定しないでください。`labels`オプションの指定が優先されIDが表示されなくなります。
 ```{r}
 mtcars %>% 
   dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
   prcomp(scale. = TRUE) %>%
   ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
-                     id = TRUE,
-                     family = family)
+                     base_family = base_family, family = family,
+                     id = TRUE)
 ```
 
+　  
 
-## mtcars
+## labels データの作成方法
+`labels`データは主成分分析の対象となっているデータセットと同じデータ順のベクトルデータとして作成してください。本Vignettで利用している`mtcars`データセットの場にはデータセットに名前属性がついていますので、これをそのまま利用しています。`groups`データも同様です。
+
+　  
+
+## グラフをアレンジする
+`ggbiplot`関数は`ggplot2`パッケージベースですので`ggplot2`パッケージの関数群を用いてアレンジすることが可能です。ただし、以下の要素は`ggplot2`パッケージの関数群でのアレンジはできません。  
+
+* ラベルや変量名のフォント（`ggbiplot`関数の`family`オプションで指定してください）
+* 散布図の点（形、大きさ）
+* 変量の矢印（大きさ、色）
+* 変量名の色
+
+　  
+
+### 凡例を変更する
+凡例の見出しは処理上、必ず`group`と表示されます。この表示を変更したい場合には`ggplot2::scale_color_discrete`関数を用いてください。また、凡例のラベルを変更することも可能です。なお、macOSにおいて凡例に日本語を使う場合には必ず`base_family`に日本語フォントを指定してください。
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     base_family = base_family, family = family,
+                     id = TRUE) +
+    ggplot2::scale_color_discrete(name = "気筒数",
+                                  labels = c("4気筒", "6気筒", "8気筒"))
+```
+　  
+凡例の表示位置を変えることもできます。
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     base_family = base_family, family = family,
+                     id = TRUE) +
+    ggplot2::scale_color_discrete(name = "気筒数",
+                                  labels = c("4気筒", "6気筒", "8気筒")) +
+    ggplot2::theme(legend.direction = 'horizontal', legend.position = 'top')
+```
+
+　  
+
+### テーマを変更する
+テーマは`ggplot2::theme_*`関数群を用いて変更できます。
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     base_family = base_family, family = family,
+                     id = TRUE) +
+    ggplot2::theme_bw()
+```
+　  
+ただし、`ggplot2::theme_*`関数を適用すると`base_family`オプションの指定が上書きされてしまいますので、`ggplot2::theme_*`関数の`base_family`オプションで指定する必要があります。
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     family = family,
+                     id = TRUE) +
+    ggplot2::theme_bw(base_family = base_family)
+```
+
+　  
+
+### グループの配色を変更する
+グループ指定している場合の点とラベルの配色は`ggplot2::scale_color_*`関数群で変更が可能です。例えばカラーパレットを変更する場合には以下のように指定してください。
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     family = family, id = TRUE) +
+    ggplot2::scale_color_brewer(palette = "Set1")
+```
+
+　  
+
+### 描画範囲を指定する
+描画範囲は`ggplot2`パッケージベースですので、描くデータから自動的に計算しています。ラベルが切れてしまう場合など、描画範囲を意図的に変更したい場合には`ggplot2::xlim, ylim`関数を用いてください。
+```{r}
+mtcars %>% 
+  dplyr::select(`車重` = wt, `馬力` = hp, `排気量` = disp, qsec, drat) %>%
+  prcomp(scale. = TRUE) %>%
+  ggbiplot::ggbiplot(groups = as.factor(mtcars$cyl),
+                     labels = row.names(mtcars),
+                     family = family) +
+    ggplot2::xlim(-3, 3) 
+```
+
+　  
+
+## mtcars データセット
 ```{r, echo=FALSE, results='asis'}
-head(mtcars, 10) %>% 
-  # tibble::rowid_to_column("id") %>% 
+mtcars %>% 
+  tibble::rownames_to_column() %>% 
+  tibble::rowid_to_column("id") %>% 
   knitr::kable()
 ```
 

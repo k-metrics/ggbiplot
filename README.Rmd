@@ -7,14 +7,14 @@ output:
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 **NEW**  
-パッケージをpre-releaseしました。以下のコマンドでインストールできます。お問い合わせなどは [issue](https://github.com/k-metrics/ggbiplot/issues) からお願いします。  
+パッケージをreleaseしました。以下のコマンドでインストールできます。お問い合わせなどは [issues](https://github.com/k-metrics/ggbiplot/issues) からお願いします。  
 ```
 devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
 ```
 
 
 **ABOUT**  
-本リポジトリは3年以上開発が行われていない [vqv/ggbiplot v0.55](https://github.com/vqv/ggbiplot) リポジトリをフォークし [nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot) リポジトリでの修正を参考にしています。
+本リポジトリは3年以上開発が止まっている [vqv/ggbiplot v0.55](https://github.com/vqv/ggbiplot) originリポジトリをフォークし [nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot) リポジトリでの修正を参考に改良しました。なお、ライセンスはオリジナルのライセンスを引き継いでいます。
 
 
 
@@ -24,35 +24,38 @@ devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data"
 v0.55.5
 -------
 
+* 正式リリース
 * Vignetteにおけるフォント設定を各環境に合わせて設定するように変更
+* Vignetteで設定されているフォントを確認できるように変更
+* Vignetteにグラフのアレンジ例を追加
 
 
 > Vignettesはパッケージインストール時にbuildされるためにbuild環境に合わせて指定する必要があるためです。
 
 
-v0.55.4
+v0.55.4 - pre release
 -------
 
-* Vignetteを追加しました
+* Vignetteを追加
 
 
 > `devtools::install_github`関数は`build_opts`に`--no-build-vignettes`がデフォルト指定されており、デフォルトではvignettesが展開されないようになっています。vignettesを展開するには上記の**NEW**にあるように`build_opts`を指定してください。
 
 
-v0.55.3
+v0.55.3 - pre release
 -------
 
-* パッケージの依存関係（Depends, Imports）を修正しました
+* パッケージの依存関係（Depends, Imports）を見直し
 
 
-v0.55.2
+v0.55.2 - pre release
 -------
 
 * ドキュメントを`roxygen2`パッケージによる自動生成に変更
 * 提供パッケージをソースのみに変更
 
 
-v0.55.1 - ggbiplot.r
+v0.55.1 - pre release
 -------
 
 * 日本語フォントを指定てきるように以下のパラメータを追加
@@ -63,7 +66,7 @@ v0.55.1 - ggbiplot.r
 * ラベル表示に`ggreple`パッケージを用いることでラベルが重なることを防止
 * ラベルまたはIDとポイント（点）が同時に表示できるように変更
 * アルファチャネル（`alpha`）の指定がラベルまたはIDにも反映するように変更
-* `ggscreeplot`関数は未変更です
+* `ggscreeplot`関数は未変更
 
 > データの変数名に日本語が含まれているとmacOS環境で豆腐文字になってしまうのを回避するためにフォント指定のパラメータを追加しました。macOS環境で日本語の変数名やラベルを表示する場合、少なくとも`family`パラメータにフォント名を指定してください。  
 
@@ -75,20 +78,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "README-",
 require(tidyverse)
 source("./R/ggbiplot.r")
 load("./data/wine.rda")
-
-if (Sys.info()[1] == "Windows") {
-  windowsFonts(`Noto Mono` = windowsFont("Noto Mono"),
-               ms_pmin = windowsFont("ＭＳ Ｐ明朝"),
-               ms_got = windowsFont("ＭＳ ゴシック"))
-  base_family = c("ms_pmin")
-  family = c("Noto Mono")
-} else if (Sys.info()[1] == "Linux") {
-  base_family = c("Noto Serif CJK JP")
-  family = c("Noto Mono")
-} else {  # macOS
-  base_famiry = c("HiraKakuPro-W3")
-  family = c("Osaka")
-}
 ```
 
 ggbiplot
