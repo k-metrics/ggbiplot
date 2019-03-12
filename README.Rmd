@@ -7,7 +7,7 @@ output:
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 **NEW**  
-パッケージをreleaseしました。以下のコマンドでインストールできます。お問い合わせなどは [issues](https://github.com/k-metrics/ggbiplot/issues) からお願いします。  
+パッケージをreleaseしました。Vignettesを展開するために必ず以下のコマンドでインストールしてください。お問い合わせなどは [issues](https://github.com/k-metrics/ggbiplot/issues) からお願いします。  
 ```
 devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
 ```
@@ -24,7 +24,6 @@ devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data"
 v0.55.5
 -------
 
-* 正式リリース
 * Vignetteにおけるフォント設定を各環境に合わせて設定するように変更
 * Vignetteで設定されているフォントを確認できるように変更
 * Vignetteにグラフのアレンジ例を追加
