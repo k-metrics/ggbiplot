@@ -4,6 +4,8 @@
 
     devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
 
+なお、Windows環境の場合は <a href="https://cran.r-project.org/bin/windows/Rtools/" target="_blank" title="Building R for Windows">Rtools35</a> が必要です。動作条件はDESCRIPTIONファイルでご確認ください。
+
 **ABOUT**
 本リポジトリは3年以上開発が止まっている [vqv/ggbiplot v0.55](https://github.com/vqv/ggbiplot) originリポジトリをフォークし [nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot) リポジトリでの修正を参考に改良しました。なお、ライセンスはオリジナルのライセンスを引き継いでいます。
 
@@ -17,7 +19,7 @@ v0.55.5
 -   Vignetteで設定されているフォントを確認できるように変更
 -   Vignetteにグラフのアレンジ例を追加
 
-> Vignettesはパッケージインストール時にbuildされるためにbuild環境に合わせて指定する必要があるためです。
+> Vignettesはパッケージインストール時にbuildされるためにbuild環境に合わせてフォントを指定する必要があるためです。
 
 v0.55.4 - pre release
 ---------------------

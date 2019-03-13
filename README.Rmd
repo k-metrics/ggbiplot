@@ -8,9 +8,12 @@ output:
 
 **NEW**  
 パッケージをreleaseしました。Vignettesを展開するために必ず以下のコマンドでインストールしてください。お問い合わせなどは [issues](https://github.com/k-metrics/ggbiplot/issues) からお願いします。  
+
 ```
 devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
 ```
+
+なお、Windows環境の場合は [Rtools35 <i class="fa fa-external-link"></i>](https://cran.r-project.org/bin/windows/Rtools/){target="_blank" title="Building R for Windows"} が必要です。動作条件はDESCRIPTIONファイルでご確認ください。  
 
 
 **ABOUT**  
