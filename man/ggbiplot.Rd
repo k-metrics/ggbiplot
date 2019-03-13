@@ -68,7 +68,6 @@ Biplot for Principal Components using ggplot2
 \examples{
   data(wine)
   wine.pca <- prcomp(wine, scale. = TRUE)
-  ggbiplot(wine.pca, obs.scale = 1, var.scale = 1, groups = wine.class,
-    ellipse = TRUE, circle = TRUE)
+  ggbiplot(wine.pca, obs.scale = 1, var.scale = 1, groups = wine.class, ellipse = TRUE, circle = TRUE)
 
 }
