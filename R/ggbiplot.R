@@ -48,12 +48,14 @@
 #'
 #' @return                a ggplot2 plot
 #' @export
-#' @import                tidyverse
-#' @importFrom            ggrepel geom_label_repel
+#' @import                ggplot2
+#' @importFrom            ggrepel geom_text_repel
 #' @importFrom            grid arrow
+#' @importFrom            magrittr %>% 
 #' @importFrom            plyr ddply
 #' @importFrom            scales muted
 #' @importFrom            stats predict qchisq var
+#' @importFrom            tibble rowid_to_column
 #' @examples
 #'   data(wine)
 #'   wine.pca <- prcomp(wine, scale. = TRUE)
