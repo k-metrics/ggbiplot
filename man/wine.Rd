@@ -6,7 +6,22 @@
 \alias{wine.class}
 \title{Wine dataset}
 \format{A \code{wine} data frame consisting of 178 observations (rows) and
-13 columns and vector \code{wine.class} of factors indicating the cultivars.}
+13 columns and vector \code{wine.class} of factors indicating the cultivars.
+\describe{
+  \item{\code{[, 1] Alcohol}}{}
+  \item{\code{[, 2] MalicAcid}}{}
+  \item{\code{[, 3] Ash} - 灰分}{}
+  \item{\code{[, 4] AlcAsh} - Alcalinity of ash}{}
+  \item{\code{[, 5] Mg} - Magnesium}{}
+  \item{\code{[, 6] Phenols} - Total phenols}{}
+  \item{\code{[, 7] Flav} - Flavanoids}{}
+  \item{\code{[, 8] NonFlavPhenols} - Nonflavanoid phenols}{}
+  \item{\code{[, 1] Proa} - Proanthocyanins}{}
+  \item{\code{[, 10] Color} - Color intensity}{}
+  \item{\code{[, 11] Hue}}{}
+  \item{\code{[, 12] OD} - OD280/OD315 of diluted wines}{}
+  \item{\code{[, 13] Proline}}{}
+}}
 \source{
 UCI Machine Learning Repository (\url{http://archive.ics.uci.edu/ml/datasets/Wine})
 }
@@ -18,9 +33,6 @@ Results of a chemical analysis of wines grown in the same region in Italy
 but derived from three different cultivars. The analysis determined the 
 quantities of 13 constituents found in each of the three types of wines. 
 The cultivars, 'barolo', 'barbera', and 'grignolino', are indicated in wine.class.
-}
-\details{
-Chemical analysis of wines in Italy
 }
 \examples{
 data(wine)

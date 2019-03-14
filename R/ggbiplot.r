@@ -49,7 +49,7 @@
 #' @return                a ggplot2 plot
 #' @export
 #' @import                ggplot2
-#' @importFrom            ggrepel geom_label_repel
+#' @importFrom            ggrepel geom_text_repel
 #' @importFrom            grid arrow
 #' @importFrom            magrittr %>% 
 #' @importFrom            plyr ddply
