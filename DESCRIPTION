@@ -1,23 +1,22 @@
 Package: ggbiplot
 Type: Package
 Title: A ggplot2 based biplot
-Version: 0.55.5
-Date: 2019-03-12
+Version: 0.55.6
+Date: 2019-03-14
 Author: Vincent Q. Vu (Original Author), Sampo Suzuki
 Maintainer: Sampo Suzuki <24760577+k-metrics@users.noreply.github.com>
 Description: A ggplot2 based biplot, originated by Vincent Q. Vu.
     ggbiplot provides a drop-in replacement for biplot.princomp().
     It implements a biplot and scree plot using ggplot2.
     forked from vqv/ggbiplot (http://github.com/vqv/ggbiplot).
-Depends: R (>= 3.4.0), tidyverse (>= 1.2.0)
-Imports: ggrepel, grid, plyr, scales
+Depends: R (>= 3.4.0)
+Imports: ggplot2, ggrepel, grid, magrittr, plyr, scales, tibble
 Encoding: UTF-8
 License: GPL-2
 BugReports: https://github.com/k-metrics/ggbiplot/issues
 URL: http://github.com/k-metrics/ggbiplot
-Collate: 'ggbiplot.r' 'ggscreeplot.r'
+Collate: 'ggbiplot.R' 'ggscreeplot.R' 'wine.R'
+LazyData: true
 RoxygenNote: 6.1.1
-Suggests: 
-    knitr,
-    rmarkdown
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
