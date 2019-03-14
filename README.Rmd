@@ -27,8 +27,8 @@ devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data"
 v0.55.6
 -------
 
-* 付属データセット（wine）を`ggbiplot::`で参照できるように変更
-* 上記に合わせてデータセットのヘルプ記述を修正
+* 付属データセット（wine）を`::`関数で参照できるように変更
+* 付属データセットのヘルプ（manページ）記述を修正
 * パッケージの依存関係を修正
 
 
