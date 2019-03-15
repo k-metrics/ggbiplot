@@ -3,7 +3,7 @@ Type: Package
 Title: A ggplot2 based biplot
 Version: 0.55.7
 Date: 2019-03-15
-Author: Vincent Q. Vu (Original Author), Sampo Suzuki
+Author: Sampo Suzuki
 Maintainer: Sampo Suzuki <24760577+k-metrics@users.noreply.github.com>
 Description: A ggplot2 based biplot, originated by Vincent Q. Vu.
     ggbiplot provides a drop-in replacement for biplot.princomp().
