@@ -1,25 +1,38 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**NEW**
-パッケージをreleaseしました。Vignettesを展開するために必ず以下のコマンドでインストールしてください。お問い合わせなどは [issues](https://github.com/k-metrics/ggbiplot/issues) からお願いします。
+**NEW**  
+パッケージをreleaseしました。Vignettesを展開するために必ず以下のコマンドでインストールしてください。お問い合わせなどは
+[issues](https://github.com/k-metrics/ggbiplot/issues)
+からお願いします。
 
     devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data", "--no-manual"))
 
-なお、Windows環境の場合は <a href="https://cran.r-project.org/bin/windows/Rtools/" target="_blank" title="Building R for Windows">Rtools35 <i class="fa fa-external-link"></i></a> が必要です。動作条件はDESCRIPTIONファイルでご確認ください。
+なお、Windows環境の場合は
+<a href="https://cran.r-project.org/bin/windows/Rtools/" target="_blank" title="Building R for Windows">Rtools35 <i class="fa fa-external-link"></i></a>
+が必要です。動作条件はDESCRIPTIONファイルでご確認ください。
 
-**ABOUT**
-本リポジトリは3年以上開発が止まっている [vqv/ggbiplot v0.55](https://github.com/vqv/ggbiplot) originリポジトリをフォークし [nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot) リポジトリでの修正を参考に改良しました。なお、ライセンスはオリジナルのライセンスを引き継いでいます。
+**ABOUT**  
+本リポジトリは3年以上開発が止まっている [vqv/ggbiplot
+v0.55](https://github.com/vqv/ggbiplot) originリポジトリをフォークし
+[nyubachi/ggbiplot](https://github.com/nyubachi/ggbiplot)
+リポジトリでの修正を参考に改良しました。なお、ライセンスはオリジナルのライセンスを引き継いでいます。
 
 主な変更点
 ==========
 
-v0.55.6
+v0.55.7 - Update
+-------
+
+-   NEWSを追加
+-   パッケージの依存関係を修正
+
+v0.55.6 - Update
 -------
 
 -   付属データセット（wine）を`::`関数で参照できるように変更
 -   付属データセットのヘルプ（manページ）記述を修正
 -   パッケージの依存関係を修正
 
-v0.55.5
+v0.55.5 - Release
 -------
 
 -   Vignetteにおけるフォント設定を各環境に合わせて設定するように変更
@@ -51,7 +64,8 @@ v0.55.1 - pre release
 
 -   日本語フォントを指定てきるように以下のパラメータを追加
     -   `base_family` - ggplot2のテーマに対するフォント指定
-    -   `family` - 変数名やラベル名などのテキスト描画関数に対するフォント指定
+    -   `family` -
+        変数名やラベル名などのテキスト描画関数に対するフォント指定
 -   ラベルを表示しない場合にIDを表示できるように以下のパラメータを追加
     -   `id` - プロットする（`TRUE`）/しない（`FALSE`, デフォルト）
 -   ラベル表示に`ggreple`パッケージを用いることでラベルが重なることを防止
@@ -64,7 +78,11 @@ v0.55.1 - pre release
 ggbiplot
 ========
 
-An implementation of the biplot using ggplot2. The package provides two functions: `ggscreeplot()` and `ggbiplot()`. `ggbiplot` aims to be a drop-in replacement for the built-in R function `biplot.princomp()` with extended functionality for labeling groups, drawing a correlation circle, and adding Normal probability ellipsoids.
+An implementation of the biplot using ggplot2. The package provides two
+functions: `ggscreeplot()` and `ggbiplot()`. `ggbiplot` aims to be a
+drop-in replacement for the built-in R function `biplot.princomp()` with
+extended functionality for labeling groups, drawing a correlation
+circle, and adding Normal probability ellipsoids.
 
 Installation
 ------------

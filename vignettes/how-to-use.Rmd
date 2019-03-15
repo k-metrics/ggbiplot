@@ -19,8 +19,8 @@ knitr::opts_chunk$set(
 require(tidyverse)
 
 if (Sys.info()[1] == "Windows") {
-  windowsFonts(`MS P明朝` = windowsFont("ＭＳ Ｐ明朝"),
-               `MS ゴシック` = windowsFont("ＭＳ ゴシック"))
+  grDevices::windowsFonts(`MS P明朝` = grDevices::windowsFont("ＭＳ Ｐ明朝"),
+                          `MS ゴシック` = grDevices::windowsFont("ＭＳ ゴシック"))
   base_family = c("MS P明朝")
   family = c("MS ゴシック")
 } else if (Sys.info()[1] == "Linux") {

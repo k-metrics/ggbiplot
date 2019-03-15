@@ -24,7 +24,14 @@ devtools::install_github("k-metrics/ggbiplot", build_opts = c("--no-resave-data"
 主な変更点
 ==========
 
-v0.55.6
+v0.55.7 - Update
+-------
+
+* NEWSを追加
+* パッケージの依存関係を修正
+
+
+v0.55.6 - Update
 -------
 
 * 付属データセット（wine）を`::`関数で参照できるように変更
@@ -32,7 +39,7 @@ v0.55.6
 * パッケージの依存関係を修正
 
 
-v0.55.5
+v0.55.5 - Release
 -------
 
 * Vignetteにおけるフォント設定を各環境に合わせて設定するように変更
@@ -86,7 +93,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "README-",
                       message = FALSE, warning = FALSE)
 
 require(tidyverse)
-source("./R/ggbiplot.r")
+source("./R/ggbiplot.RR")
 load("./data/wine.rda")
 ```
 

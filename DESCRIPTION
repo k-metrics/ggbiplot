@@ -1,8 +1,8 @@
 Package: ggbiplot
 Type: Package
 Title: A ggplot2 based biplot
-Version: 0.55.6
-Date: 2019-03-14
+Version: 0.55.7
+Date: 2019-03-15
 Author: Vincent Q. Vu (Original Author), Sampo Suzuki
 Maintainer: Sampo Suzuki <24760577+k-metrics@users.noreply.github.com>
 Description: A ggplot2 based biplot, originated by Vincent Q. Vu.
@@ -11,12 +11,12 @@ Description: A ggplot2 based biplot, originated by Vincent Q. Vu.
     forked from vqv/ggbiplot (http://github.com/vqv/ggbiplot).
 Depends: R (>= 3.4.0)
 Imports: ggplot2, ggrepel, grid, magrittr, plyr, scales, tibble
+Suggests: grDevices, knitr, rmarkdown
+Collate: 'ggbiplot.R' 'ggscreeplot.R' 'wine.R'
 Encoding: UTF-8
 License: GPL-2
 BugReports: https://github.com/k-metrics/ggbiplot/issues
 URL: http://github.com/k-metrics/ggbiplot
-Collate: 'ggbiplot.R' 'ggscreeplot.R' 'wine.R'
 LazyData: true
 RoxygenNote: 6.1.1
-Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
