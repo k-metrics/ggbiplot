@@ -93,7 +93,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "README-",
                       message = FALSE, warning = FALSE)
 
 require(tidyverse)
-source("./R/ggbiplot.RR")
+source("./R/ggbiplot.R")
 load("./data/wine.rda")
 ```
 
